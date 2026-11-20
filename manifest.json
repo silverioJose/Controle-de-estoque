@@ -1,0 +1,23 @@
+{
+  "name": "Despensa",
+  "short_name": "Despensa",
+  "description": "Controle de estoque e lista de compras",
+  "start_url": "/Mobile/index.php",
+  "scope": "/Mobile/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#ffbe88",
+  "icons": [
+    {
+      "src": "/Mobile/public/img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/Mobile/public/img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

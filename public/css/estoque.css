@@ -1,0 +1,52 @@
+.produto {
+    display: grid;
+    grid-template-columns: 1fr 10% ;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 1px solid var(--borda);
+    margin: 5px;
+    border-radius: var(--radius);
+    background-color: var(--fundo);
+
+}
+
+.produto-info {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 5px;
+    min-width: 0;
+}
+
+.caption {
+    font-size: 14px;
+    opacity: 0.8;
+    font-weight: 100;
+}
+
+.produto-acoes {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 5px;
+}
+
+.produto-acoes a {
+    padding: 5px;
+    border-radius: var(--radius);
+    border:1px solid var(--borda);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.adicionar {
+    color: green;
+    background-color: rgba(60, 255, 0, 0.1);
+}
+
+.remover {
+    color: red;
+    background-color: rgba(255, 0, 0, 0.1);
+}

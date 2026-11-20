@@ -1,0 +1,16 @@
+:root {
+    --fundo: #ffede8;
+    --primaria: rgba(255, 128, 0, 0.4);
+    --secundaria: #ffa984;
+    --texto: #3b1400;
+    --borda: #ffa984;
+
+    --blur: 5px;
+    --radius: 25px;
+}
+
+/* CSS Variables generated from Kigen.design */
+:root {
+  
+  --flush-orange-7: rgba(33, 11, 0, 0.3);
+}

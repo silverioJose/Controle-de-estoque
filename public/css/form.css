@@ -1,0 +1,102 @@
+.modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0; /* top, right, bottom, left = 0 */
+    background-color: rgba(0, 0, 0, 0.45);
+    z-index: 200;
+    align-items: flex-end; /* estilo bottom-sheet no mobile */
+    justify-content: center;
+    padding: 12px;
+}
+
+.modal-backdrop.ativo {
+    display: flex;
+}
+
+.modal-box {
+    width: 100%;
+    max-width: 480px;
+    max-height: 88vh;
+    overflow-y: auto;
+    background-color: var(--fundo, #fff);
+    border: 1px solid var(--borda, #ddd);
+    border-radius: 20px;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.modal-header h3 {
+    margin: 0;
+}
+
+.modal-fechar {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.form-produto {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.linha-dupla {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.campo label {
+    font-size: 0.85rem;
+}
+
+.campo input,
+.campo select {
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid var(--borda, #ccc);
+    font-size: 1rem; /* evita zoom automático chato no mobile */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.modal-acoes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.btn-primario,
+.btn-secundario {
+    padding: 12px;
+    border-radius: 20px;
+    border: 1px solid var(--borda, #ccc);
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.btn-primario {
+    background-color: var(--primaria, #ffbe88);
+    font-weight: 600;
+}
+
+.btn-secundario {
+    background-color: transparent;
+}
