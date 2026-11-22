@@ -64,6 +64,22 @@ class ProdutoDAO {
         ]);
     }
 
+    public function excluirVarios(array $ids): bool {
+        $ids = array_values(array_unique(array_filter(
+            array_map('intval', $ids),
+            static fn (int $id): bool => $id > 0
+        )));
+
+        if ($ids === []) {
+            return false;
+        }
+
+        $marcadores = implode(',', array_fill(0, count($ids), '?'));
+        $stmt = $this->pdo->prepare("DELETE FROM produtos WHERE id IN ($marcadores)");
+
+        return $stmt->execute($ids);
+    }
+
     public function alterarQuantidade(int $id, int $delta): bool {
         $sql = "UPDATE produtos SET quantidadeAtual = GREATEST(0, quantidadeAtual + :delta) WHERE id = :id";
 

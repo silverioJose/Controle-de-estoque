@@ -28,7 +28,10 @@ $produtos = $pDAO->listarTodos();
 <body>
     <header class="header">
         <h2>Despensa</h2>
-        <a href="#">✎</a>
+        <?php if (!empty($produtos)) : ?>
+            <button type="button" id="btn-modo-exclusao" class="modo-exclusao-toggle"
+                aria-pressed="false" aria-label="Selecionar produtos para excluir">Selecionar</button>
+        <?php endif; ?>
     </header>
 
     <main>
@@ -39,18 +42,25 @@ $produtos = $pDAO->listarTodos();
                 <h3>Estoque de produtos</h3>
             </div>
 
-            <?php foreach ($produtos as $p) : ?>
-                <div class="produto">
-                    <div class="produto-info">
-                        <h3><?= htmlspecialchars($p->getNome()) ?> · <?= htmlspecialchars($p->getEmbalagem()) ?></h3>
-                        <h4 class="caption">Atual: <?= $p->getQuantidadeAtual() ?> - Min: <?= $p->getQuantidadeMinima() ?></h4>
+            <form id="form-exclusao" action="src/controller/excluirProdutoController.php" method="POST">
+                <?php foreach ($produtos as $p) : ?>
+                    <?php $nomeProduto = $p->getNome() . ($p->getEmbalagem() !== '' ? ' · ' . $p->getEmbalagem() : ''); ?>
+                    <div class="produto">
+                        <label class="produto-selecao" aria-label="Selecionar <?= htmlspecialchars($nomeProduto, ENT_QUOTES, 'UTF-8') ?>">
+                            <input class="checkbox-produto" type="checkbox" name="ids[]" value="<?= (int) $p->getId() ?>"
+                                data-nome="<?= htmlspecialchars($nomeProduto, ENT_QUOTES, 'UTF-8') ?>">
+                        </label>
+                        <div class="produto-info">
+                            <h3><?= htmlspecialchars($nomeProduto) ?></h3>
+                            <h4 class="caption">Atual: <?= $p->getQuantidadeAtual() ?> - Min: <?= $p->getQuantidadeMinima() ?></h4>
+                        </div>
+                        <div class="produto-acoes">
+                            <a href="src/controller/alterarQuantidadeController.php?id=<?= (int) $p->getId() ?>&acao=mais" class="adicionar">+</a>
+                            <a href="src/controller/alterarQuantidadeController.php?id=<?= (int) $p->getId() ?>&acao=menos" class="remover">-</a>
+                        </div>
                     </div>
-                    <div class="produto-acoes">
-                        <a href="src/controller/alterarQuantidadeController.php?id=<?= (int) $p->getId() ?>&acao=mais" class="adicionar">+</a>
-                        <a href="src/controller/alterarQuantidadeController.php?id=<?= (int) $p->getId() ?>&acao=menos" class="remover">-</a>
-                    </div>
-                </div>
-            <?php endforeach ; ?>
+                <?php endforeach ; ?>
+            </form>
         <?php endif ; ?>
     </main>
 
@@ -63,6 +73,27 @@ $produtos = $pDAO->listarTodos();
         </div>
         <a href="#" class="criar">+</a>
     </footer>
+
+    <div id="barra-exclusao" class="barra-exclusao" aria-label="Ações de exclusão">
+        <button type="button" id="cancelar-selecao" class="btn-secundario">Cancelar</button>
+        <button type="submit" id="abrir-confirmacao-exclusao" class="btn-excluir" form="form-exclusao" disabled>Excluir</button>
+    </div>
+
+    <div id="modal-confirmar-exclusao" class="modal-backdrop" aria-hidden="true">
+        <section class="modal-box" role="alertdialog" aria-modal="true" aria-labelledby="titulo-confirmar-exclusao">
+            <div class="modal-header">
+                <h3 id="titulo-confirmar-exclusao">Confirmar exclusão</h3>
+                <button type="button" id="fechar-confirmacao-exclusao" class="modal-fechar" aria-label="Fechar">✕</button>
+            </div>
+            <p id="resumo-exclusao"></p>
+            <ul id="itens-exclusao" class="itens-exclusao"></ul>
+            <p class="aviso-exclusao">Essa ação não pode ser desfeita.</p>
+            <div class="modal-acoes">
+                <button type="button" id="cancelar-confirmacao-exclusao" class="btn-secundario">Voltar</button>
+                <button type="button" id="confirmar-exclusao" class="btn-excluir">Excluir definitivamente</button>
+            </div>
+        </section>
+    </div>
 
     <div id="modal-insert" class="modal-backdrop" aria-hidden="true">
         <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="titulo-modal">
@@ -125,6 +156,7 @@ $produtos = $pDAO->listarTodos();
         </div>
     </div>
     <script src="public/js/form.js"></script>
+    <script src="public/js/excluir.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {

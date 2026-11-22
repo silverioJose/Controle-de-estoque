@@ -1,4 +1,4 @@
-const CACHE_NAME = 'despensa-v2';
+const CACHE_NAME = 'despensa-v3';
 const APP_BASE = new URL('./', self.registration.scope);
 const OFFLINE_URL = new URL('offline.html', APP_BASE).href;
 
@@ -17,6 +17,7 @@ const ASSETS_ESTATICOS = [
   'public/css/estoque.css',
   'public/js/form.js',
   'public/js/copiar.js',
+  'public/js/excluir.js',
   'public/assets/fonts/Poppins-Regular.ttf',
   'public/img/icon-192.png',
   'public/img/icon-512.png'

@@ -2,14 +2,11 @@
 
 Aplicação web para organizar os produtos da despensa, acompanhar o estoque mínimo e montar uma lista de compras. O projeto usa **PHP**, **MySQL** e pode ser instalado no Android como **PWA** pelo navegador.
 
-<!-- Para alterar o endereço do botão, troque o valor do atributo href abaixo. -->
 <p align="center">
   <a href="https://oficinahotrods.com.br/15565/Mobile/">
     <img src="https://img.shields.io/badge/ACESSAR%20O%20PROJETO-ff8c42?style=for-the-badge" alt="Acessar o projeto">
   </a>
 </p>
-
->
 
 ## O que o aplicativo faz
 
@@ -33,7 +30,7 @@ Aplicação web para organizar os produtos da despensa, acompanhar o estoque mí
 | `offline.html` | Página mostrada quando o servidor não pode ser acessado. |
 | `src/controller/` | Ações para cadastrar, excluir e alterar quantidades. |
 | `src/dao/` | Consultas e operações do banco de dados. |
-| `src/database/` | Conexão PDO com MySQL/. |
+| `src/database/` | Conexão PDO com MySQL. |
 | `src/model/` | Modelo de dados do produto. |
 | `public/css/` | Estilos das telas. |
 | `public/js/` | Comportamentos do formulário e da lista de compras. |
@@ -68,21 +65,3 @@ CREATE TABLE IF NOT EXISTS produtos (
   quantidadeMinima INT UNSIGNED NOT NULL DEFAULT 0,
   departamento VARCHAR(80) NOT NULL
 );
-```
-
-4. Confira o host, usuário, senha e nome do banco em `src/database/Database.php`. O nome esperado pelo projeto é `controle_estoque`.
-5. Abra **http://localhost/Mobile/** no navegador do computador.
-
-## Instalar no Android
-
-1. Publique o projeto em um servidor que execute PHP e consiga acessar o banco de dados.
-2. Configure HTTPS para o endereço publicado. Uma conexão HTTP por endereço IP da rede local normalmente não permite instalar o PWA; `localhost` só vale quando o servidor está no próprio aparelho.
-3. Abra o endereço no Chrome do Android, aguarde o carregamento e escolha **Instalar app** ou **Adicionar à tela inicial** no menu do navegador.
-
-O PWA abre em uma janela própria e usa os ícones em `public/img/`. Ele é instalado pelo navegador e **não gera um arquivo APK**. Para distribuir um APK, seria necessário criar ou empacotar um aplicativo Android separado.
-
-## Observações
-
-- O service worker guarda arquivos estáticos e a página offline; ele não armazena nem sincroniza o estoque.
-- O servidor e o banco precisam continuar disponíveis para listar ou alterar produtos.
-- Em ambientes Linux, os nomes de arquivos diferenciam letras maiúsculas e minúsculas. Confira a grafia de caminhos em `include` e `require`.

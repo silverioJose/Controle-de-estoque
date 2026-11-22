@@ -50,3 +50,100 @@
     color: red;
     background-color: rgba(255, 0, 0, 0.1);
 }
+
+.produto-selecao {
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkbox-produto {
+    width: 22px;
+    height: 22px;
+    accent-color: #8a3214;
+}
+
+.modo-exclusao-toggle {
+    justify-self: end;
+    padding: 7px 13px;
+    border: 1px solid var(--borda);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.42);
+    color: var(--texto);
+    font: inherit;
+    cursor: pointer;
+}
+
+body.modo-exclusao {
+    padding-bottom: 96px;
+}
+
+body.modo-exclusao .produto {
+    grid-template-columns: 32px minmax(0, 1fr);
+}
+
+body.modo-exclusao .produto-selecao {
+    display: flex;
+}
+
+body.modo-exclusao .produto-acoes,
+body.modo-exclusao .footer {
+    display: none;
+}
+
+.barra-exclusao {
+    display: none;
+    position: fixed;
+    z-index: 150;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    gap: 10px;
+    padding: 8px;
+    border: 1px solid var(--borda);
+    border-radius: 20px;
+    background: rgba(255, 237, 232, 0.96);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.14);
+    backdrop-filter: blur(var(--blur));
+}
+
+.barra-exclusao.ativa {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.barra-exclusao button,
+.modal-acoes .btn-excluir {
+    min-height: 46px;
+    padding: 10px 14px;
+    border: 1px solid var(--borda);
+    border-radius: 18px;
+    font: inherit;
+    cursor: pointer;
+}
+
+.barra-exclusao .btn-secundario {
+    background: transparent;
+}
+
+.btn-excluir {
+    background: #9d2e20;
+    color: #fff;
+    font-weight: 700;
+}
+
+.btn-excluir:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.itens-exclusao {
+    max-height: 30vh;
+    overflow-y: auto;
+    padding-left: 22px;
+}
+
+.aviso-exclusao {
+    color: #9d2e20;
+    font-weight: 600;
+}
