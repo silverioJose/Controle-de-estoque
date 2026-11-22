@@ -1,8 +1,26 @@
-const CACHE_NAME = 'despensa-v1';
+const CACHE_NAME = 'despensa-v2';
+const APP_BASE = new URL('./', self.registration.scope);
+const OFFLINE_URL = new URL('offline.html', APP_BASE).href;
+
 const ASSETS_ESTATICOS = [
-  '/Mobile/public/css/main.css',
-  '/Mobile/public/js/copiar.js'
-];
+  'manifest.json',
+  'offline.html',
+  'public/css/main.css',
+  'public/css/normalize.css',
+  'public/css/fonts.css',
+  'public/css/geral.css',
+  'public/css/variables.css',
+  'public/css/header.css',
+  'public/css/lista.css',
+  'public/css/footer.css',
+  'public/css/form.css',
+  'public/css/estoque.css',
+  'public/js/form.js',
+  'public/js/copiar.js',
+  'public/assets/fonts/Poppins-Regular.ttf',
+  'public/img/icon-192.png',
+  'public/img/icon-512.png'
+].map((path) => new URL(path, APP_BASE).href);
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -16,31 +34,50 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((keys) =>
       Promise.all(
         keys
-          .filter((key) => key !== CACHE_NAME)
+          .filter((key) => key.startsWith('despensa-') && key !== CACHE_NAME)
           .map((key) => caches.delete(key))
       )
-    )
+    ).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
 self.addEventListener('fetch', (event) => {
   const { request } = event;
+  const url = new URL(request.url);
 
-  // Nunca intercepta requisições POST ou controllers PHP de escrita
-  if (request.method !== 'GET' || request.url.includes('/src/controller/')) {
+  // Evita armazenar ações do sistema, inclusive alteração de quantidade via GET.
+  if (
+    request.method !== 'GET' ||
+    url.origin !== APP_BASE.origin ||
+    url.pathname.includes('/src/controller/')
+  ) {
     return;
   }
 
-  // Para CSS/JS/imagens: tenta cache primeiro, depois rede
-  const isAsset =
-    request.url.includes('/public/css/') ||
-    request.url.includes('/public/js/') ||
-    request.url.includes('/public/img/');
-
-  if (isAsset) {
+  if (request.mode === 'navigate') {
     event.respondWith(
-      caches.match(request).then((cached) => cached || fetch(request))
+      fetch(request).catch(async () => {
+        const offlinePage = await caches.match(OFFLINE_URL);
+        return offlinePage || Response.error();
+      })
     );
+    return;
   }
+
+  const isStaticAsset = /\/public\/(css|js|img|assets)\//.test(url.pathname);
+  if (!isStaticAsset) return;
+
+  event.respondWith(
+    caches.match(request).then((cached) => {
+      if (cached) return cached;
+
+      return fetch(request).then((response) => {
+        if (response.ok) {
+          const responseCopy = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(request, responseCopy));
+        }
+        return response;
+      });
+    })
+  );
 });

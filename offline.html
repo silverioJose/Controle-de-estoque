@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffbe88">
+  <title>Sem conexão · Despensa</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; color: #3b1400; background: #ffede8; }
+    * { box-sizing: border-box; }
+    body { min-height: 100vh; margin: 0; display: grid; place-items: center; padding: 24px; }
+    main { width: min(100%, 420px); padding: 32px 24px; border: 1px solid #ffa984; border-radius: 24px; background: #fffaf8; text-align: center; }
+    img { width: 80px; height: 80px; }
+    h1 { margin: 16px 0 8px; font-size: 1.5rem; }
+    p { line-height: 1.5; }
+    button { min-height: 48px; margin-top: 12px; padding: 0 22px; border: 0; border-radius: 14px; background: #3b1400; color: white; font: inherit; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <main>
+    <img src="public/img/icon-192.png" alt="">
+    <h1>Você está sem conexão</h1>
+    <p>O estoque e a lista precisam do servidor para carregar. Conecte-se à internet e tente novamente.</p>
+    <button type="button" onclick="location.reload()">Tentar novamente</button>
+  </main>
+</body>
+</html>

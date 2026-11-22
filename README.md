@@ -25,3 +25,10 @@ Aplicativo web em **PHP** com banco **MariaDB/MySQL** e suporte a **PWA** para a
 4. **Acesso:** Abra o endereço local no navegador (ex.: `http://localhost` ou o IP/porta do servidor).
 
 > **Dica em sistemas Linux:** Atenção às letras maiúsculas e minúsculas nos nomes de arquivos ao fazer `include`/`require` (ex.: `ProdutoDAO.php`). Para instalação como PWA completo em dispositivos Android, prefira acesso via **HTTPS**.
+## Instalar no Android
+
+1. Sirva esta pasta por um servidor com PHP e o banco de dados configurado. Para instalar no Chrome do Android, acesse o site por **HTTPS**; `localhost` funciona para desenvolvimento no próprio aparelho.
+2. Abra a tela principal no Chrome, aguarde carregar e escolha **Instalar app** ou **Adicionar à tela inicial** no menu.
+3. O service worker mantém arquivos visuais e uma tela de aviso disponíveis sem rede. Estoque e lista ainda precisam do servidor PHP e do MySQL.
+
+O PWA é instalado pelo navegador e não gera um APK. Um APK exigiria empacotar a aplicação num projeto Android separado.

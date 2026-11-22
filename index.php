@@ -17,10 +17,12 @@ $produtos = $pDAO->listarTodos();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>APP</title>
+    <title>Despensa</title>
     <link rel="stylesheet" href="public/css/main.css">
 
-    <link rel="manifest" href="/Mobile/manifest.json">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="public/img/icon-192.png" type="image/png">
+    <link rel="apple-touch-icon" href="public/img/icon-192.png">
     <meta name="theme-color" content="#ffbe88">
 </head>
 <body>
@@ -126,7 +128,7 @@ $produtos = $pDAO->listarTodos();
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/Mobile/sw.js').catch((err) => {
+            navigator.serviceWorker.register('sw.js').catch((err) => {
                 console.error('Erro ao registrar Service Worker:', err);
             });
             });
