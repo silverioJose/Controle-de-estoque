@@ -1,6 +1,6 @@
 # Controle de Despensa (PWA)
 
-Aplicativo web em **PHP** com banco **MariaDB/MySQL** e suporte a **PWA** para acompanhar os itens da despensa e do estoque doméstico, comparando a quantidade atual com a quantidade mínima por departamento.
+Aplicativo web em **PHP** com banco **MySQL** e suporte a **PWA** para acompanhar os itens da despensa e do estoque doméstico, comparando a quantidade atual com a quantidade mínima por departamento.
 
 ## Funcionalidades
 
