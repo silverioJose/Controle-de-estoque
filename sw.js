@@ -1,4 +1,4 @@
-const CACHE_NAME = 'despensa-v3';
+const CACHE_NAME = 'despensa-v4';
 const APP_BASE = new URL('./', self.registration.scope);
 const OFFLINE_URL = new URL('offline.html', APP_BASE).href;
 

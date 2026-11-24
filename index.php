@@ -3,7 +3,7 @@
 $uriAtual = $_SERVER['REQUEST_URI'] ?? '';
 
 include __DIR__ . "/src/database/Database.php";
-include __DIR__ . "/src/dao/produtoDAO.php";
+include __DIR__ . "/src/dao/ProdutoDAO.php";
 
 $pdo = Database::getConexao();
 $pDAO = new ProdutoDAO($pdo);

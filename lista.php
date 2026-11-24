@@ -3,7 +3,7 @@
 $uriAtual = $_SERVER['REQUEST_URI'] ?? '';
 
 include __DIR__ . "/src/database/Database.php";
-include __DIR__ . "/src/dao/produtoDAO.php";
+include __DIR__ . "/src/dao/ProdutoDAO.php";
 
 $pdo = Database::getConexao();
 $pDAO = new ProdutoDAO($pdo);
@@ -28,7 +28,7 @@ $produtos = $pDAO->listarAbaixoDoMinimo();
 <body>
     <header class="header">
         <h2>Despensa</h2>
-        <a href="#">✎</a>
+        <a></a>
     </header>
 
     <main>
@@ -41,17 +41,43 @@ $produtos = $pDAO->listarAbaixoDoMinimo();
             <?php if (empty($produtos)) : ?>
                 <p>Nenhum item abaixo do estoque mínimo.</p>
             <?php else : ?>
-                <ul id="texto-lista" class="lista-itens">
-                    <?php foreach ($produtos as $p) : ?>
-                        <?php
-                        $falta = max(1, (int) $p->getQuantidadeMinima() - (int) $p->getQuantidadeAtual());
-                        ?>
-                        <li>
-                            <?= htmlspecialchars($p->getNome()) ?> · <?= htmlspecialchars($p->getEmbalagem()) ?>
-                            <span>Comprar: +<?= $falta ?> <?= htmlspecialchars($p->getUnidade()) ?></span>
-                        </li>
+                <div id="texto-lista">
+                    <?php
+                    $produtosPorDepartamento = [];
+
+                    foreach ($produtos as $produto) {
+                        $departamento = trim($produto->getDepartamento()) ?: 'Outros';
+                        $produtosPorDepartamento[$departamento][] = $produto;
+                    }
+                    ?>
+
+                    <?php foreach ($produtosPorDepartamento as $departamento => $itens) : ?>
+                        <section class="grupo-departamento">
+                            <h4 class="departamento"><?= htmlspecialchars($departamento, ENT_QUOTES, 'UTF-8') ?></h4>
+
+                            <ul class="lista-itens">
+                                <?php foreach ($itens as $p) : ?>
+                                    <?php
+                                    $falta = max(
+                                        1,
+                                        (int) $p->getQuantidadeMinima() - (int) $p->getQuantidadeAtual()
+                                    );
+                                    ?>
+
+                                    <li>
+                                        <?= htmlspecialchars($p->getNome()) ?>
+                                        ·
+                                        <?= htmlspecialchars($p->getEmbalagem()) ?>
+                                        <span>
+                                            Comprar: +<?= $falta ?>
+                                            <?= htmlspecialchars($p->getUnidade()) ?>
+                                        </span>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </section>
                     <?php endforeach; ?>
-                </ul>
+                </div>
             <?php endif; ?>
         </section>
     </main>

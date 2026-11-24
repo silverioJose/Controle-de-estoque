@@ -23,7 +23,7 @@ class ProdutoDAO {
     }
 
     public function listarTodos(): array {
-        $sql = "SELECT * FROM produtos";
+        $sql = "SELECT * FROM produtos ORDER BY departamento, nome ASC";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
 
@@ -92,9 +92,9 @@ class ProdutoDAO {
     }
 
     public function listarAbaixoDoMinimo(): array {
-    $sql = "SELECT * FROM produtos
-            WHERE quantidadeAtual < quantidadeMinima
-            ORDER BY nome ASC";
+    $sql = $sql = "SELECT * FROM produtos
+        WHERE quantidadeAtual < quantidadeMinima
+        ORDER BY departamento ASC, nome ASC";
 
     $stmt = $this->pdo->prepare($sql);
     $stmt->execute();
